@@ -2,12 +2,12 @@ import { http } from './config'
 
 export default{
   
-  get: () => {
-    return http.get('recetas?count=50')
+  get: (txtBusqueda) => {
+    return http.get('recetas?count=50&txtBusqueda=' + txtBusqueda)
   },
 
   create: (receta) => {
-    return http.post('receta/' + receta.idrecetas, receta)
+    return http.post('receta', receta)
   },
 
   update: (receta) => {

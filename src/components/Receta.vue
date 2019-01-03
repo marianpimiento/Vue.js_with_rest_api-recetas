@@ -31,6 +31,16 @@
 
       </form>
 
+      <form @submit.prevent="listar">
+
+          <label>Buscar por nombre</label>
+          <input type="text" v-model="txtBusqueda">
+
+          <button class="waves-effect waves-light btn-small">Buscar</button>
+
+      </form>
+
+
       <table>
 
         <thead>
@@ -81,7 +91,8 @@ export default {
         preparacion: ''
       },
       recetas: [],
-      errors: []
+      errors: [],
+      txtBusqueda: ''
     }
   },
 
@@ -92,7 +103,7 @@ export default {
   methods: {
 
     listar () {
-      Receta.get().then(response => {
+      Receta.get(this.txtBusqueda).then(response => {
         this.recetas = response.data
       })
     },
@@ -138,8 +149,6 @@ export default {
             console.log(e)
         })
       }
-
-
     }
   }
 }
