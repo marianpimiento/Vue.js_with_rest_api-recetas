@@ -26,14 +26,20 @@
           <tr>
             <th>Nombre</th>
             <th>Tipo de Plato</th>
+            <th>Porciones</th>
+            <th>Ingredientes</th>            
+            <th>Preparacion</th>
             <th>Opciones</th>
           </tr>
         </thead>
 
         <tbody>
-          <tr>
-            <td>Pie de manzana</td>
-            <td>Postre</td>
+          <tr v-for="receta of recetas" :key="receta.idrecetas">
+            <td>{{receta.nombre}}</td>
+            <td>{{receta.tipoplato}}</td>
+            <td>{{receta.porciones}}</td>
+            <td>{{receta.ingredientes}}</td>
+            <td>{{receta.preparacion}}</td>
             <td>
               <button class="waves-effect btn-small blue darken-1"><i class="material-icons">create</i></button>
               <button class="waves-effect btn-small red darken-1"><i class="material-icons">delete_sweep</i></button>
@@ -47,3 +53,38 @@
 
   </div>
 </template>
+
+<script>
+import Receta from './../services/recetas'
+
+export default {
+
+  data () {
+    return {
+      receta: {
+        idrecetas: '',
+        nombre: '',
+        tipoplato: '',
+        preparacion: '',
+        porciones: '',
+        ingredientes: ''
+      },
+      recetas: [],
+      errors: []
+    }
+  },
+
+  mounted () {
+    this.listar()
+  },
+
+  methods: {
+
+    listar () {
+      Receta.get().then(response => {
+        this.recetas = response.data
+      })
+    }
+  }
+}
+</script>
