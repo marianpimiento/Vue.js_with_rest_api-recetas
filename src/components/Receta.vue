@@ -17,27 +17,27 @@
     <a name="arriba"></a>
     <div class="container">
 
-      <ul>
+      <!-- <ul>
         <li v-for="(erro,index) of errors" :key="index">
           Campo <b>{{erro.field}}</b> - {{erro.defaultMessage}}
         </li>
-      </ul>
+      </ul> -->
 
       <!-- Seccion de formulario para creacion de receta -->
       <div class="card">
-      <h5 class="card-header">Crear receta</h5>
+      <h5 class="card-header">{{tituloForm}}</h5>
 
       <div class="card-body">
         <form @submit.prevent="guardar">
 
           <div class="form-row">
             <div class="form-group col-md-6">
-              <label for="inputNombre">Nombre</label>
-              <input type="text" class="form-control" id="inputNombre" v-model="receta.nombre">
+              <label for="inputNombre">Nombre *</label>
+              <input type="text" class="form-control" id="inputNombre" v-model="receta.nombre" required>
             </div>
             <div class="form-group col-md-4">
-              <label for="inputTipo">Tipo de plato</label>
-              <select id="inputTipo" class="form-control" v-model="receta.tipoplato">
+              <label for="inputTipo">Tipo de plato *</label>
+              <select id="inputTipo" class="form-control" v-model="receta.tipoplato" required>
                 <option selected></option>
                 <option>Entrada</option>
                 <option>Plato fuerte</option>
@@ -48,22 +48,23 @@
               </select>
             </div>
             <div class="form-group col-md-2">
-              <label for="inputPorciones">Porciones</label>
-              <input type="text" class="form-control" id="inputPorciones" v-model="receta.porciones">
+              <label for="inputPorciones">Porciones *</label>
+              <input type="text" class="form-control" id="inputPorciones" v-model="receta.porciones" required>
             </div>
           </div>
 
           <div class="form-row">
             <div class="form-group col-md-6">
-              <label for="textareaIngredientes">Ingredientes</label>
-              <textarea class="form-control" id="textareaIngredientes" rows="3" v-model="receta.ingredientes"></textarea>
+              <label for="textareaIngredientes">Ingredientes *</label>
+              <textarea class="form-control" id="textareaIngredientes" rows="3" v-model="receta.ingredientes" required></textarea>
             </div>
             <div class="form-group col-md-6">
-              <label for="textareaPreparacion">Preparación</label>
-              <textarea class="form-control" id="textareaPreparacion" rows="3" v-model="receta.preparacion"></textarea>
+              <label for="textareaPreparacion">Preparación *</label>
+              <textarea class="form-control" id="textareaPreparacion" rows="3" v-model="receta.preparacion" required></textarea>
             </div>
           </div>
 
+          <button @click="limpiarForm" type="button" class="btn btn-outline-info float-left">Limpiar</button>
           <button type="submit" class="btn btn-info float-right">Guardar</button>
         </form>
       </div>
@@ -85,7 +86,7 @@
             <!-- <input type="text" class="form-control" aria-label="Buscar por nombre" aria-describedby="basic-addon2" v-model="txtBusqueda"  @input="listar"> -->
             <div class="input-group-append">
               <button class="btn btn-info" type="submit">Buscar</button>
-              <button @click="limpiar" class="btn btn-outline-info" type="button">Limpiar</button>
+              <button @click="limpiarBusqueda" class="btn btn-outline-info" type="button">Limpiar</button>
             </div>
           </div>
 
@@ -99,8 +100,8 @@
         <div class="card-header">
         <!-- <div class="card-header " style="background-color: #f5b1af;"> -->
           <b>{{receta.nombre}} ({{receta.porciones}} porciones) - {{receta.tipoplato}}</b>
-          <button @click="eliminar(receta)" type="button" class="btn btn-outline-dark float-right">Borrar</button>
-          <button @click="editar(receta)" type="button" class="btn btn-outline-dark float-right">Editar</button>
+          <button @click="eliminar(receta)" type="button" class="btn btn-outline-dark btn-sm float-right">Borrar</button>
+          <button @click="editar(receta)" type="button" class="btn btn-outline-dark btn-sm float-right">Editar</button>
         </div>
         <div class="card-body text-dark">
           <dl class="row">
@@ -126,16 +127,17 @@ export default {
   data () {
     return {
       receta: {
-        idrecetas: 0,
+        idrecetas: '',
         nombre: '',
         tipoplato: '',
-        porciones: 0,
+        porciones: '',
         ingredientes: '',
         preparacion: ''
       },
       recetas: [],
       errors: [],
-      txtBusqueda: ''
+      txtBusqueda: '',
+      tituloForm: 'Crear receta'
     }
   },
 
@@ -171,6 +173,7 @@ export default {
           alert('Actualizado')
           this.listar()
           this.errors = []
+          this.tituloForm = 'Crear receta'
         }).catch(e => {
           // console.log(e.response.data.errors)
           // this.errors = e.response.data.errors
@@ -182,8 +185,9 @@ export default {
     },
 
     editar (receta) {
-      window.location.href = "#arriba";
       this.receta = receta
+      this.tituloForm = 'Actualizar receta'
+      window.location.href = "#arriba"
     },
 
     eliminar (receta) {
@@ -201,9 +205,14 @@ export default {
       this.receta = {}
     },
 
-    limpiar (receta) {
+    limpiarBusqueda (receta) {
       this.txtBusqueda = ''
       this.listar()
+    },
+
+    limpiarForm (receta) {
+      this.receta = {}
+      this.tituloForm = 'Crear receta'
     },
   }
 }
