@@ -14,12 +14,6 @@
     <a name="arriba"></a>
     <div class="container">
 
-      <!-- <ul>
-        <li v-for="(erro,index) of errors" :key="index">
-          Campo <b>{{erro.field}}</b> - {{erro.defaultMessage}}
-        </li>
-      </ul> -->
-
       <!-- Seccion de formulario para creacion de receta -->
       <div class="card">
         <h5 class="card-header">{{tituloForm}}</h5>
@@ -80,7 +74,6 @@
 
           <div class="input-group mb-3">
             <input type="text" class="form-control" aria-label="Buscar por nombre" aria-describedby="basic-addon2" placeholder="Buscar por nombre ..." v-model="txtBusqueda">
-            <!-- <input type="text" class="form-control" aria-label="Buscar por nombre" aria-describedby="basic-addon2" v-model="txtBusqueda"  @input="listar"> -->
             <div class="input-group-append">
               <button class="btn btn-info" type="submit">Buscar</button>
               <button @click="limpiarBusqueda" class="btn btn-outline-info" type="button">Limpiar</button>
@@ -161,10 +154,7 @@ export default {
           this.listar()
           this.errors = []
         }).catch(e => {
-          // console.log(e.response.data.errors)
-          // this.errors = e.response.data.errors
             console.log(e)
-            // this.errors = e
             alert('Error: No se ha podido completar la creación')
         })
       } else {
@@ -177,10 +167,7 @@ export default {
           this.errors = []
           this.tituloForm = 'Crear receta'
         }).catch(e => {
-          // console.log(e.response.data.errors)
-          // this.errors = e.response.data.errors
           console.log(e)
-          // this.errors = e
           alert('Error: No se ha podido realizar la actualización')
         })
       }
@@ -198,9 +185,7 @@ export default {
           this.listar()
           this.errors = []
         }).catch(e => {
-            // this.errors = e.response.data.errors
             console.log(e)
-            // this.errors = e
             alert('Error: No se ha eliminado la receta')
         })
       }
