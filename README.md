@@ -14,7 +14,7 @@
 ## Estructura de datos
 
 Receta:
-- irRecetas int
+- idrecetas int
 - nombre string
 - tipoplato string
 - porciones int
