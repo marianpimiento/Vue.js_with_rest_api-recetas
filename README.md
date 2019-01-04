@@ -1,21 +1,22 @@
-# recetas
+# Recetas (Vue.js)
 
-> A Vue.js project
+> Aplicación Vue.js que permite realizar el CRUD a datos de recetas y buscar por su nombre, esto consumiendo una rest api por medio de axios. Utiliza el template bootstrap-vue.js.
 
 ## Build Setup
 
-``` bash
-# install dependencies
-npm install
+> Dependencias
+    "axios": "^0.18.0"
+    "bootstrap": "^4.0.0-beta.2"
+    "bootstrap-vue": "latest"
+    "popper.js": "^1.12.9"
+    "vue": "^2.5.2"
 
-# serve with hot reload at localhost:8080
-npm run dev
+> Estructura de datos:
 
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
-```
-
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+Receta:
+	IdRecetas int
+	Nombre string
+	TipoPlato string
+	Preparacion string
+	Porciones int
+	Ingredientes string
