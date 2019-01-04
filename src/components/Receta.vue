@@ -89,13 +89,13 @@
 
       </form>
 
-      {{recetas.length}} recetas encontradas
+      {{recetas.length}} receta(s) encontrada(s)
       <br><br>
 
       <!-- Seccion de presentacion de recetas -->
       <div class="card border-dark mb-3" v-for="receta of recetas" :key="receta.idrecetas">
         <div class="card-header">
-          <b>{{receta.nombre}} ({{receta.porciones}} porciones) - {{receta.tipoplato}}</b>
+          <b>{{receta.nombre}} ({{receta.porciones}} porciones) - {{receta.tipoplato}} + {{receta.idrecetas}} </b>
           <button @click="eliminar(receta)" type="button" class="btn btn-outline-dark btn-sm float-right">Borrar</button>
           <button @click="editar(receta)" type="button" class="btn btn-outline-dark btn-sm float-right">Editar</button>
         </div>
@@ -123,7 +123,7 @@ export default {
   data () {
     return {
       receta: {
-        idrecetas: 0,
+        idrecetas: null,
         nombre: '',
         tipoplato: '',
         porciones: '',
@@ -133,7 +133,8 @@ export default {
       recetas: [],
       errors: [],
       txtBusqueda: '',
-      tituloForm: 'Crear receta'
+      tituloForm: 'Crear receta',
+      idrecetaActualizar: null
     }
   },
 
@@ -164,7 +165,9 @@ export default {
             alert('Error: No se ha podido completar la creación')
         })
       } else {
-        Receta.update(this.receta).then(response => {
+        this.idrecetaActualizar = this.receta.idrecetas
+        this.receta.idrecetas = null
+        Receta.update(this.receta, this.idrecetaActualizar).then(response => {
           this.receta = {}
           alert('Actualizado')
           this.listar()

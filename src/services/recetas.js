@@ -3,11 +3,12 @@ import { http } from './config'
 export default{
   
   get: (txtBusqueda) => {
+    var JSONbig = require('json-bigint')({"storeAsString": true})
     return http.get('/recetas', {
       params: {
-        count: 50,
         txtBusqueda: txtBusqueda
-      }
+      },
+      transformResponse: data => JSONbig.parse(data)
     })
   },
 
@@ -15,8 +16,8 @@ export default{
     return http.post('receta', receta)
   },
 
-  update: (receta) => {
-    return http.put('receta/' + receta.idrecetas, receta)
+  update: (receta, idrecetaActualizar) => {
+    return http.put('receta/' + idrecetaActualizar, receta)
   },
 
   delete: (receta) => {
