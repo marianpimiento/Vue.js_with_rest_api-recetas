@@ -19,3 +19,8 @@ Receta:
 - Porciones int
 - Ingredientes string
 - Preparacion string
+
+## URLs
+
+- Servidor Vue.js local: http://localhost:8080
+- Rest Api: http://localhost:3000
