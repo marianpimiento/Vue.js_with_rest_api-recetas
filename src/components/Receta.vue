@@ -30,7 +30,7 @@
             <div class="form-row">
               <div class="form-group col-md-6">
                 <label for="inputNombre">Nombre *</label>
-                <input type="text" class="form-control" id="inputNombre" v-model="receta.nombre" required>
+                <input type="text" class="form-control" id="inputNombre" v-model="receta.nombre">
               </div>
               <div class="form-group col-md-4">
                 <label for="inputTipo">Tipo de plato *</label>
@@ -46,7 +46,7 @@
               </div>
               <div class="form-group col-md-2">
                 <label for="inputPorciones">Porciones *</label>
-                <input type="number" min="0" class="form-control" id="inputPorciones" v-model="receta.porciones" required>
+                <input type="number" min="0" class="form-control" id="inputPorciones" v-model.number="receta.porciones" required>
               </div>
             </div>
 
@@ -79,7 +79,7 @@
       <form @submit.prevent="listar">
 
           <div class="input-group mb-3">
-            <input type="text" class="form-control" aria-label="Buscar por nombre" aria-describedby="basic-addon2" v-model="txtBusqueda">
+            <input type="text" class="form-control" aria-label="Buscar por nombre" aria-describedby="basic-addon2" placeholder="Buscar por nombre ..." v-model="txtBusqueda">
             <!-- <input type="text" class="form-control" aria-label="Buscar por nombre" aria-describedby="basic-addon2" v-model="txtBusqueda"  @input="listar"> -->
             <div class="input-group-append">
               <button class="btn btn-info" type="submit">Buscar</button>
@@ -126,7 +126,7 @@ export default {
         idrecetas: 0,
         nombre: '',
         tipoplato: '',
-        porciones: 0,
+        porciones: '',
         ingredientes: '',
         preparacion: ''
       },
