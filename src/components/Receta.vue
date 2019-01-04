@@ -30,17 +30,17 @@
             <div class="form-row">
               <div class="form-group col-md-6">
                 <label for="inputNombre">Nombre *</label>
-                <input type="text" class="form-control" id="inputNombre" v-model="receta.nombre">
+                <input type="text" class="form-control" id="inputNombre" maxlength="500" v-model="receta.nombre">
               </div>
               <div class="form-group col-md-4">
                 <label for="inputTipo">Tipo de plato *</label>
                 <select id="inputTipo" class="form-control" v-model="receta.tipoplato" required>
                   <option selected></option>
                   <option>Entrada</option>
+                  <option>Ensalada</option>
                   <option>Plato fuerte</option>
                   <option>Postre</option>
-                  <option>Bocadillo</option>
-                  <option>Bebida</option>
+                  <option>Coctel</option>
                   <option>Otro</option>
                 </select>
               </div>
@@ -53,11 +53,11 @@
             <div class="form-row">
               <div class="form-group col-md-6">
                 <label for="textareaIngredientes">Ingredientes *</label>
-                <textarea class="form-control" id="textareaIngredientes" rows="3" v-model="receta.ingredientes" required></textarea>
+                <textarea class="form-control" id="textareaIngredientes" rows="3" maxlength="3000" v-model="receta.ingredientes" required></textarea>
               </div>
               <div class="form-group col-md-6">
                 <label for="textareaPreparacion">Preparación *</label>
-                <textarea class="form-control" id="textareaPreparacion" rows="3" v-model="receta.preparacion" required></textarea>
+                <textarea class="form-control" id="textareaPreparacion" rows="3" maxlength="5000" v-model="receta.preparacion" required></textarea>
               </div>
             </div>
 
@@ -95,17 +95,20 @@
       <!-- Seccion de presentacion de recetas -->
       <div class="card border-dark mb-3" v-for="receta of recetas" :key="receta.idrecetas">
         <div class="card-header">
-          <b>{{receta.nombre}} ({{receta.porciones}} porciones) - {{receta.tipoplato}} + {{receta.idrecetas}} </b>
+          <b>{{receta.nombre}} ({{receta.porciones}} porciones) - {{receta.tipoplato}}</b>
           <button @click="eliminar(receta)" type="button" class="btn btn-outline-dark btn-sm float-right">Borrar</button>
           <button @click="editar(receta)" type="button" class="btn btn-outline-dark btn-sm float-right">Editar</button>
         </div>
         <div class="card-body text-dark">
-          <dl class="row">
+          <dl class="row" style="margin-bottom: 0;">
             <dt class="col-md-3">Ingredientes</dt>
-            <dd class="col-md-9">{{receta.ingredientes}}</dd>
+            <dd class="col-md-9" style="white-space: pre-wrap;">{{receta.ingredientes}}</dd>
 
+            <dt class="col-md-3"><hr style="border-top: 1px solid; margin: 0px;"></dt>
+            <dd class="col-md-9"><hr style="border-top: 1px solid; margin: 0px;"></dd>
+            
             <dt class="col-md-3">Preparación</dt>
-            <dd class="col-md-9">{{receta.preparacion}}</dd>
+            <dd class="col-md-9" style="white-space: pre-wrap;">{{receta.preparacion}}</dd>
           </dl>
         </div>
       </div>
