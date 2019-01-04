@@ -3,7 +3,12 @@ import { http } from './config'
 export default{
   
   get: (txtBusqueda) => {
-    return http.get('recetas?count=50&txtBusqueda=' + txtBusqueda)
+    return http.get('/recetas', {
+      params: {
+        count: 50,
+        txtBusqueda: txtBusqueda
+      }
+    })
   },
 
   create: (receta) => {
