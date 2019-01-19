@@ -127,7 +127,6 @@ export default {
         preparacion: ''
       },
       recetas: [],
-      errors: [],
       txtBusqueda: '',
       tituloForm: 'Crear receta',
       idrecetaActualizar: null
@@ -149,23 +148,20 @@ export default {
     guardar () {
       if (!this.receta.idrecetas) {
         Receta.create(this.receta).then(response => {
-          this.receta = {}
           alert('Guardado')
           this.listar()
-          this.errors = []
+          this.limpiarForm()
         }).catch(e => {
-            console.log(e)
-            alert('Error: No se ha podido completar la creación')
+          console.log(e)
+          alert('Error: No se ha podido completar la creación')
         })
       } else {
         this.idrecetaActualizar = this.receta.idrecetas
         this.receta.idrecetas = null
         Receta.update(this.receta, this.idrecetaActualizar).then(response => {
-          this.receta = {}
           alert('Actualizado')
           this.listar()
-          this.errors = []
-          this.tituloForm = 'Crear receta'
+          this.limpiarForm()
         }).catch(e => {
           console.log(e)
           alert('Error: No se ha podido realizar la actualización')
@@ -180,24 +176,24 @@ export default {
     },
 
     eliminar (receta) {
-      if(confirm('¿Desea eliminar la receta?')){
-        Receta.delete(receta).then(response => {
-          this.listar()
-          this.errors = []
-        }).catch(e => {
-            console.log(e)
-            alert('Error: No se ha eliminado la receta')
-        })
+      if(!confirm('¿Desea eliminar la receta?')){
+        return
       }
+      Receta.delete(receta).then(response => {
+        this.listar()
+      }).catch(e => {
+          console.log(e)
+          alert('Error: No se ha eliminado la receta')
+      })
       this.receta = {}
     },
 
-    limpiarBusqueda (receta) {
+    limpiarBusqueda () {
       this.txtBusqueda = ''
       this.listar()
     },
 
-    limpiarForm (receta) {
+    limpiarForm () {
       this.receta = {}
       this.tituloForm = 'Crear receta'
     },
